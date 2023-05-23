@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://options/input_remap/InputRemap.gd" type="Script" id=1]
+[ext_resource path="res://utils/AnimatedButton.tscn" type="PackedScene" id=3]
+
+[node name="InputRemap" type="VBoxContainer" groups=["save"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 25
+script = ExtResource( 1 )
+font_path = "res://assets/fonts/roboto_regular.ttf"
+
+[node name="M" type="MarginContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 20.0
+custom_constants/margin_right = 10
+custom_constants/margin_left = 10
+
+[node name="ResetAll" parent="M" instance=ExtResource( 3 )]
+margin_left = 909.0
+margin_right = 1014.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Reset Controls"
+
+[node name="S" type="ScrollContainer" parent="."]
+margin_top = 45.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="M" type="MarginContainer" parent="S"]
+margin_right = 1012.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 10
+custom_constants/margin_top = 5
+custom_constants/margin_left = 10
+
+[node name="ModulesParent" type="VBoxContainer" parent="S/M"]
+margin_left = 10.0
+margin_top = 5.0
+margin_right = 1014.0
+margin_bottom = 555.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[connection signal="pressed" from="M/ResetAll" to="." method="_on_ResetAll_pressed"]
