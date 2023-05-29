@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/windows/Window.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/windows/FileExplorer.gd" type="Script" id=2]
@@ -17,6 +17,10 @@ bg_color = Color( 0.6, 0.6, 0.6, 0 )
 draw_center = false
 border_color = Color( 0.8, 0.8, 0.8, 0 )
 shadow_color = Color( 0, 0, 0, 0 )
+
+[sub_resource type="RectangleShape2D" id=3]
+resource_local_to_scene = true
+extents = Vector2( 150, 15 )
 
 [node name="FileExplorer" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -57,6 +61,7 @@ normal_style = SubResource( 2 )
 hover_style = SubResource( 2 )
 pressed_style = SubResource( 2 )
 disabled_style = SubResource( 2 )
+grab_focus = false
 
 [node name="Filepath" type="Label" parent="V/ContentParent/V/Panel/M/H" index="1"]
 margin_left = 24.0
@@ -74,5 +79,8 @@ margin_bottom = 170.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="CollisionShape2D" parent="Platform" index="0"]
+shape = SubResource( 3 )
 
 [connection signal="pressed" from="V/ContentParent/V/Panel/M/H/Back" to="." method="_on_Back_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://objects/windows/Window.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/temp/arrow.png" type="Texture" id=2]
@@ -49,39 +49,22 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="RectangleShape2D" id=6]
+resource_local_to_scene = true
+extents = Vector2( 150, 15 )
+
 [node name="ScamWindow" instance=ExtResource( 1 )]
-visible = true
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 0.0
-margin_bottom = -50.0
 script = ExtResource( 8 )
-
-[node name="V" parent="." index="0"]
-margin_right = 1024.0
-margin_bottom = 550.0
-
-[node name="Controls" parent="V" index="0"]
-margin_right = 1024.0
+start_maximized = true
 
 [node name="Minimize" parent="V/Controls/H" index="0"]
-margin_left = 844.0
-margin_right = 904.0
 disabled = true
 
 [node name="Maximize" parent="V/Controls/H" index="1"]
-margin_left = 904.0
-margin_right = 964.0
 disabled = true
 
 [node name="Close" parent="V/Controls/H" index="2"]
-margin_left = 964.0
-margin_right = 1024.0
 disabled = true
-
-[node name="ContentParent" parent="V" index="1"]
-margin_right = 1024.0
-margin_bottom = 550.0
 
 [node name="V" type="VBoxContainer" parent="V/ContentParent" index="0"]
 anchor_right = 1.0
@@ -89,13 +72,13 @@ anchor_bottom = 1.0
 custom_constants/separation = 0
 
 [node name="H" type="HBoxContainer" parent="V/ContentParent/V" index="0"]
-margin_right = 1024.0
+margin_right = 804.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 0, 25 )
 alignment = 1
 
 [node name="M" type="MarginContainer" parent="V/ContentParent/V/H" index="0"]
-margin_right = 190.0
+margin_right = 149.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
@@ -104,15 +87,15 @@ custom_constants/margin_bottom = 5
 
 [node name="H" type="HBoxContainer" parent="V/ContentParent/V/H/M" index="0"]
 margin_top = 5.0
-margin_right = 190.0
+margin_right = 149.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="V/ContentParent/V/H/M/H" index="0"]
-margin_left = 53.0
-margin_right = 78.0
+margin_left = 33.0
+margin_right = 58.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 25, 0 )
 texture = ExtResource( 2 )
@@ -120,8 +103,8 @@ expand = true
 stretch_mode = 6
 
 [node name="TextureRect2" type="TextureRect" parent="V/ContentParent/V/H/M/H" index="1"]
-margin_left = 82.0
-margin_right = 107.0
+margin_left = 62.0
+margin_right = 87.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 25, 0 )
 texture = ExtResource( 2 )
@@ -130,8 +113,8 @@ stretch_mode = 6
 flip_h = true
 
 [node name="TextureRect3" type="TextureRect" parent="V/ContentParent/V/H/M/H" index="2"]
-margin_left = 111.0
-margin_right = 136.0
+margin_left = 91.0
+margin_right = 116.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 25, 0 )
 texture = ExtResource( 3 )
@@ -140,8 +123,8 @@ stretch_mode = 7
 flip_h = true
 
 [node name="Panel" type="Panel" parent="V/ContentParent/V/H" index="1"]
-margin_left = 194.0
-margin_right = 829.0
+margin_left = 153.0
+margin_right = 650.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 2 )
@@ -154,34 +137,34 @@ custom_constants/margin_left = 30
 [node name="Label" type="Label" parent="V/ContentParent/V/H/Panel/M" index="0"]
 margin_left = 30.0
 margin_top = 3.0
-margin_right = 635.0
+margin_right = 497.0
 margin_bottom = 22.0
 text = "http://sketchywebsite.org/free-wbux"
 
 [node name="H2" type="HBoxContainer" parent="V/ContentParent/V/H" index="2"]
-margin_left = 833.0
-margin_right = 1024.0
+margin_left = 654.0
+margin_right = 804.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="Bookmarks" type="PanelContainer" parent="V/ContentParent/V" index="1"]
 margin_top = 25.0
-margin_right = 1024.0
+margin_right = 804.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 25 )
 custom_styles/panel = SubResource( 1 )
 
 [node name="M" type="MarginContainer" parent="V/ContentParent/V/Bookmarks" index="0"]
 margin_top = 1.0
-margin_right = 1024.0
+margin_right = 804.0
 margin_bottom = 24.0
 custom_constants/margin_right = 10
 custom_constants/margin_left = 20
 
 [node name="H" type="HBoxContainer" parent="V/ContentParent/V/Bookmarks/M" index="0"]
 margin_left = 20.0
-margin_right = 1014.0
+margin_right = 794.0
 margin_bottom = 23.0
 
 [node name="VSeparator11" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="0"]
@@ -310,19 +293,18 @@ margin_bottom = 23.0
 
 [node name="V" type="VBoxContainer" parent="V/ContentParent/V" index="2"]
 margin_top = 50.0
-margin_right = 1024.0
-margin_bottom = 520.0
+margin_right = 804.0
+margin_bottom = 243.0
 size_flags_vertical = 3
 custom_constants/separation = 78
 alignment = 1
 
 [node name="V" type="VBoxContainer" parent="V/ContentParent/V/V" index="0"]
-margin_top = 138.0
-margin_right = 1024.0
-margin_bottom = 213.0
+margin_right = 804.0
+margin_bottom = 75.0
 
 [node name="Label" type="Label" parent="V/ContentParent/V/V/V" index="0"]
-margin_right = 1024.0
+margin_right = 804.0
 margin_bottom = 38.0
 custom_fonts/font = ExtResource( 5 )
 text = "Free W-Bux!!"
@@ -330,7 +312,7 @@ align = 1
 
 [node name="Label2" type="Label" parent="V/ContentParent/V/V/V" index="1"]
 margin_top = 42.0
-margin_right = 1024.0
+margin_right = 804.0
 margin_bottom = 75.0
 custom_fonts/font = ExtResource( 6 )
 text = "Click the downlode buton bellow to win!!!"
@@ -338,10 +320,10 @@ align = 1
 
 [node name="Download" parent="V/ContentParent/V/V" index="1" instance=ExtResource( 7 )]
 unique_name_in_owner = true
-margin_left = 437.0
-margin_top = 291.0
-margin_right = 587.0
-margin_bottom = 331.0
+margin_left = 327.0
+margin_top = 153.0
+margin_right = 477.0
+margin_bottom = 193.0
 rect_min_size = Vector2( 150, 40 )
 size_flags_horizontal = 4
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -370,6 +352,9 @@ layer = 81
 
 [node name="DialogPlayer" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
 autoplay_dialog = [ "Woah! Free w-bux!", "I better snatch it up before the deal disappears" ]
+
+[node name="CollisionShape2D" parent="Platform" index="0"]
+shape = SubResource( 6 )
 
 [connection signal="pressed" from="V/ContentParent/V/V/Download" to="." method="_on_Download_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

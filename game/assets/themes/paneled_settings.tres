@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=15 format=2]
+[gd_resource type="Theme" load_steps=16 format=2]
 
 [ext_resource path="res://assets/fonts/rr28.tres" type="DynamicFont" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=17]
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 0.831373, 0.639216, 1 )
@@ -72,6 +74,7 @@ Button/colors/font_color_disabled = Color( 0.0509804, 0.168627, 0.270588, 1 )
 Button/colors/font_color_hover = Color( 1, 1, 1, 1 )
 Button/colors/font_color_pressed = Color( 1, 0.831373, 0.639216, 1 )
 Button/styles/disabled = SubResource( 9 )
+Button/styles/focus = SubResource( 17 )
 Button/styles/hover = SubResource( 6 )
 Button/styles/normal = SubResource( 7 )
 Button/styles/pressed = SubResource( 8 )

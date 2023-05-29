@@ -1,8 +1,7 @@
 extends Window
 
 const SmallVirus := preload("res://characters/SmallVirus.tscn")
-
-var stopped := true
+const VirusTimer := preload("res://objects/windows/VirusTimer.tscn")
 
 onready var download := $"%Download"
 onready var particles := $VirusSpawnParticles
@@ -14,7 +13,7 @@ onready var dialog_player := $CanvasLayer/DialogPlayer
 
 
 func _ready() -> void:
-	if stopped:
+	if Variables.scam_seen:
 		download.disabled = true
 		flicker_timer.start()
 		flicker_interval_timer.start()
@@ -35,6 +34,7 @@ func _on_Download_pressed() -> void:
 	var sv := SmallVirus.instance()
 	sv.global_position = download.rect_global_position + download.rect_size / 2
 	sv.target = Vector2(0, 200)
+	sv.rand_walk = false
 	sv.connect("tree_exited", self, "_on_sv_destroyed")
 	add_child(sv)
 
@@ -45,15 +45,17 @@ func _on_Timer_timeout() -> void:
 
 
 func _on_sv_destroyed() -> void:
-#	set_process(false)
-#	rect_position = Vector2()
+	yield(get_tree().create_timer(0.3, true), "timeout")
 	flicker_timer.start()
 	flicker_interval_timer.start()
 
 
 func _on_FlickerTimer_timeout() -> void:
+	if not Variables.scam_seen:
+		get_parent().add_child(VirusTimer.instance())
 	flicker_interval_timer.stop()
 	hide()
+	Variables.scam_seen = true
 	emit_signal("closed")
 
 

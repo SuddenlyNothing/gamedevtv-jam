@@ -1,0 +1,125 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/temp/stickman.png" type="Texture" id=1]
+[ext_resource path="res://characters/BasicPlatformer.gd" type="Script" id=2]
+[ext_resource path="res://characters/PlatformerStates.gd" type="Script" id=3]
+[ext_resource path="res://assets/temp/attack.png" type="Texture" id=4]
+[ext_resource path="res://utils/MultiAudioPlayer.tscn" type="PackedScene" id=7]
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "idle",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "jump",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
+} ]
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 82, 84 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 4 )
+region = Rect2( 82, 0, 82, 84 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 4 )
+region = Rect2( 164, 0, 82, 84 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 4 )
+region = Rect2( 246, 0, 82, 84 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 4 )
+region = Rect2( 328, 0, 82, 84 )
+
+[sub_resource type="SpriteFrames" id=37]
+animations = [ {
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
+"loop": false,
+"name": "attack",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=38]
+extents = Vector2( 49, 47 )
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 12, 50 )
+
+[sub_resource type="AudioStreamRandomPitch" id=30]
+resource_local_to_scene = true
+
+[sub_resource type="AudioStreamRandomPitch" id=31]
+resource_local_to_scene = true
+
+[node name="BasicPlatformer" type="KinematicBody2D" groups=["player"]]
+script = ExtResource( 2 )
+
+[node name="PlatformerStates" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Flip" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Flip"]
+position = Vector2( 0, -8 )
+frames = SubResource( 15 )
+animation = "idle"
+
+[node name="Attack" type="AnimatedSprite" parent="Flip"]
+position = Vector2( 81, -12 )
+frames = SubResource( 37 )
+speed_scale = 2.0
+
+[node name="Hitbox" type="Area2D" parent="Flip"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flip/Hitbox"]
+position = Vector2( 80, -9 )
+shape = SubResource( 38 )
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -8 )
+shape = SubResource( 16 )
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpSFX" parent="." instance=ExtResource( 7 )]
+stream = SubResource( 30 )
+audio_streams = [ null, null, null, null ]
+
+[node name="LandSFX" parent="." instance=ExtResource( 7 )]
+stream = SubResource( 31 )
+audio_streams = [ null, null, null, null, null ]
+
+[connection signal="animation_finished" from="Flip/Attack" to="." method="_on_Attack_animation_finished"]
+[connection signal="frame_changed" from="Flip/Attack" to="." method="_on_Attack_frame_changed"]

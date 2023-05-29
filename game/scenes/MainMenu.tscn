@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/fonts/rr32.tres" type="DynamicFont" id=1]
+[ext_resource path="res://utils/AnimatedButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/MainMenu.gd" type="Script" id=3]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 1 )
+script = ExtResource( 3 )
+play_scene = "res://scenes/Demo.tscn"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="V" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="V"]
+margin_top = 107.0
+margin_right = 1024.0
+margin_bottom = 145.0
+text = "Virus Panic"
+align = 1
+
+[node name="V" type="VBoxContainer" parent="V"]
+margin_top = 195.0
+margin_right = 1024.0
+margin_bottom = 287.0
+
+[node name="Play" parent="V/V" instance=ExtResource( 2 )]
+margin_left = 476.0
+margin_right = 548.0
+margin_bottom = 44.0
+size_flags_horizontal = 4
+custom_styles/focus = SubResource( 2 )
+text = "Play"
+
+[node name="Settings" parent="V/V" instance=ExtResource( 2 )]
+margin_left = 447.0
+margin_top = 48.0
+margin_right = 576.0
+margin_bottom = 92.0
+focus_mode = 2
+size_flags_horizontal = 4
+custom_styles/focus = SubResource( 2 )
+text = "Settings"
+
+[node name="V2" type="VBoxContainer" parent="V"]
+margin_top = 337.0
+margin_right = 1024.0
+margin_bottom = 493.0
+
+[node name="Credits" type="Label" parent="V/V2"]
+margin_right = 1024.0
+margin_bottom = 38.0
+text = "Credits"
+align = 1
+
+[node name="H" type="VBoxContainer" parent="V/V2"]
+margin_top = 42.0
+margin_right = 1024.0
+margin_bottom = 156.0
+custom_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="V/V2/H"]
+margin_right = 1024.0
+margin_bottom = 38.0
+text = "Code - Nothing#3367"
+align = 1
+
+[node name="Label2" type="Label" parent="V/V2/H"]
+margin_top = 38.0
+margin_right = 1024.0
+margin_bottom = 76.0
+text = "Audio - AndreRoz#8755"
+align = 1
+
+[node name="Label3" type="Label" parent="V/V2/H"]
+margin_top = 76.0
+margin_right = 1024.0
+margin_bottom = 114.0
+text = "Art - sydney#1987"
+align = 1
+
+[connection signal="pressed" from="V/V/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="V/V/Settings" to="." method="_on_Settings_pressed"]

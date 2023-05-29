@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Bosso Fight.mp3-0e331bb2a6150cafefe2127fffa30b21.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/Bosso Fight.mp3"
+dest_files=[ "res://.import/Bosso Fight.mp3-0e331bb2a6150cafefe2127fffa30b21.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

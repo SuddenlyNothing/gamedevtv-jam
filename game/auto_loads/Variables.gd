@@ -4,11 +4,16 @@ extends Node
 var user_keys := PoolStringArray([
 	"pause",
 	"continue",
-	"up",
+	"attack",
 	"left",
-	"down",
 	"right"
 ])
 
 # Used for formatting strings to display the correct key.
 var input_format := {}
+
+var seen_player := false
+
+var scam_seen := false
+
+var visited_folders := {}

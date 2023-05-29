@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/windows/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/windows/VirusTimer.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/rr32.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/fonts/rr28.tres" type="DynamicFont" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 130, 15 )
+
+[node name="VirusTimer" instance=ExtResource( 1 )]
+margin_left = 720.0
+margin_top = 45.0
+margin_right = -44.0
+margin_bottom = -405.0
+script = ExtResource( 2 )
+can_maximize = false
+end_scene = "res://scenes/LoseScreen.tscn"
+
+[node name="V" parent="." index="0"]
+margin_right = 260.0
+margin_bottom = 150.0
+
+[node name="Controls" parent="V" index="0"]
+margin_right = 260.0
+
+[node name="Minimize" parent="V/Controls/H" index="0"]
+visible = false
+
+[node name="Maximize" parent="V/Controls/H" index="1"]
+visible = false
+
+[node name="Close" parent="V/Controls/H" index="2"]
+visible = false
+
+[node name="ContentParent" parent="V" index="1"]
+margin_right = 260.0
+margin_bottom = 150.0
+
+[node name="M" type="MarginContainer" parent="V/ContentParent" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 20
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 20
+
+[node name="V" type="VBoxContainer" parent="V/ContentParent/M" index="0"]
+margin_left = 5.0
+margin_top = 20.0
+margin_right = 255.0
+margin_bottom = 100.0
+
+[node name="Label" type="Label" parent="V/ContentParent/M/V" index="0"]
+margin_right = 250.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 4 )
+text = "Virus Takeover..."
+align = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="V/ContentParent/M/V" index="1"]
+margin_top = 37.0
+margin_right = 250.0
+margin_bottom = 80.0
+size_flags_vertical = 7
+custom_fonts/font = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="Platform" index="0"]
+position = Vector2( 130, 15 )
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="." index="4"]
+wait_time = 180.0
+one_shot = true
+autostart = true
+
+[node name="DotTimer" type="Timer" parent="." index="5"]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="DotTimer" to="." method="_on_DotTimer_timeout"]

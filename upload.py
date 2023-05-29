@@ -68,7 +68,7 @@ def find_and_export(dir: str) -> bool:
                     os.system(f'tar.exe caf "{zip_file}" -C "{export_dir}" *')
                 
                     # upload projects to itch
-                    upload_command = f'butler push "{zip_file}" nothing-d/dev:{{}}'
+                    upload_command = f'butler push "{zip_file}" nothing-d/virus-panic:{{}}'
                     if platform == "HTML5":
                         upload_command = upload_command.format("html")
                     elif platform == "Windows Desktop":

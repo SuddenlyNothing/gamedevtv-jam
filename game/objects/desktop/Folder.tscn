@@ -72,6 +72,7 @@ theme = SubResource( 2 )
 custom_styles/focus = SubResource( 14 )
 script = ExtResource( 3 )
 hover_timing = 0.05
+grab_focus = false
 item_name = "Folder"
 
 [node name="BG" parent="." index="0"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Minigame.mp3-71c373f2e674e202154f140ab5428d81.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/Minigame.mp3"
+dest_files=[ "res://.import/Minigame.mp3-71c373f2e674e202154f140ab5428d81.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,85 @@
+[gd_resource type="Resource" load_steps=17 format=2]
+
+[ext_resource path="res://objects/desktop/file_system/Txt.gd" type="Script" id=1]
+[ext_resource path="res://objects/desktop/file_system/Folder.gd" type="Script" id=2]
+[ext_resource path="res://objects/desktop/file_system/FileSystem.gd" type="Script" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 1 )
+name = "Ransom"
+content = "nothing wrong with computer
+continue"
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 1 )
+name = "Essay"
+content = "Yeah, I'm not writing an essay for a game jam.
+Sorry for the dissappointment."
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 2 )
+name = "English"
+children = [ SubResource( 4 ) ]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+name = "Fall"
+children = [ SubResource( 3 ) ]
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 1 )
+name = "Problem Set 1"
+content = "Solve for x.
+A.
+13 * 15 + 2 = x
+
+B.
+(x + 15) / 2 = 8
+
+C.
+x^(2 / 3) / 9 = 17"
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 2 )
+name = "Math"
+children = [ SubResource( 5 ) ]
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 2 )
+name = "Winter"
+children = [ SubResource( 6 ) ]
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 1 )
+name = "WWI Reflection"
+content = "It was bad :("
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 1 )
+name = "WWII Reflection"
+content = "Why'd we do another one!? D:"
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 2 )
+name = "New Folder"
+children = null
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 2 )
+name = "History"
+children = [ SubResource( 8 ), SubResource( 9 ), SubResource( 12 ) ]
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 2 )
+name = "Spring"
+children = [ SubResource( 10 ) ]
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 2 )
+name = "Homework"
+children = [ SubResource( 2 ), SubResource( 7 ), SubResource( 11 ) ]
+
+[resource]
+script = ExtResource( 3 )
+name = "Desktop"
+children = [ SubResource( 1 ), SubResource( 13 ) ]

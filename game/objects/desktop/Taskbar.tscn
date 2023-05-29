@@ -1,12 +1,15 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://objects/desktop/Taskbar.gd" type="Script" id=1]
 [ext_resource path="res://objects/desktop/TaskbarApp.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/desktop/file_system/Desktop.tres" type="Resource" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://objects/desktop/file_system/resources/Desktop.tres" type="Resource" id=3]
+[ext_resource path="res://assets/temp/logo.png" type="Texture" id=4]
 [ext_resource path="res://assets/temp/folder.png" type="Texture" id=5]
 [ext_resource path="res://assets/temp/txt.png" type="Texture" id=6]
 [ext_resource path="res://assets/temp/browser.png" type="Texture" id=7]
+[ext_resource path="res://assets/temp/stickman.png" type="Texture" id=8]
+[ext_resource path="res://assets/Music/Files.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/Music/Mails.mp3" type="AudioStream" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
@@ -57,6 +60,9 @@ bg_color = Color( 0.117647, 0.176471, 0.239216, 0.588235 )
 border_width_top = 1
 border_color = Color( 0.756863, 0.741176, 0.870588, 1 )
 border_blend = true
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 512, 25 )
 
 [node name="Taskbar" type="Control"]
 anchor_right = 1.0
@@ -123,34 +129,48 @@ custom_constants/separation = 5
 alignment = 1
 
 [node name="TaskbarApp3" parent="V/Panel/M/H/AppsParent" instance=ExtResource( 2 )]
-margin_left = 376.0
-margin_right = 419.0
+margin_left = 352.0
+margin_right = 395.0
 margin_bottom = 43.0
 play_hover = false
 play_pressed = false
+grab_focus = false
 app_name = "Browser"
 app_icon = ExtResource( 7 )
 open_with = "res://objects/windows/ScamWindow.tscn"
 
 [node name="TaskbarApp" parent="V/Panel/M/H/AppsParent" instance=ExtResource( 2 )]
-margin_left = 424.0
-margin_right = 467.0
+margin_left = 400.0
+margin_right = 443.0
 margin_bottom = 43.0
 play_hover = false
 play_pressed = false
+grab_focus = false
 app_name = "Files"
 app_icon = ExtResource( 5 )
 open_with = "res://objects/windows/FileExplorer.tscn"
 
 [node name="TaskbarApp2" parent="V/Panel/M/H/AppsParent" instance=ExtResource( 2 )]
-margin_left = 472.0
-margin_right = 515.0
+margin_left = 448.0
+margin_right = 491.0
 margin_bottom = 43.0
 play_hover = false
 play_pressed = false
+grab_focus = false
 app_name = "Text"
 app_icon = ExtResource( 6 )
 open_with = "res://objects/windows/TextEditor.tscn"
+
+[node name="TaskbarApp4" parent="V/Panel/M/H/AppsParent" instance=ExtResource( 2 )]
+margin_left = 496.0
+margin_right = 539.0
+margin_bottom = 43.0
+play_hover = false
+play_pressed = false
+grab_focus = false
+app_name = "Player"
+app_icon = ExtResource( 8 )
+open_with = "res://objects/windows/Player.tscn"
 
 [node name="Time" type="Label" parent="V/Panel/M/H"]
 unique_name_in_owner = true
@@ -162,5 +182,19 @@ text = "12:00 PM"
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 512, 575 )
+shape = SubResource( 14 )
+
+[node name="Files" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+bus = "Music"
+
+[node name="Boss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+bus = "Music"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

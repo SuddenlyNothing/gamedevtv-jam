@@ -10,6 +10,7 @@ const Maximize2Icon := preload("res://assets/temp/maximize2.png")
 const WindowBounds := Rect2(200, 0, 1024-400, 570)
 
 export(bool) var start_maximized := false
+export(bool) var can_maximize := true
 
 var t: SceneTreeTween
 var offset := Vector2()
@@ -23,6 +24,7 @@ var pre_minimize_pos := Vector2()
 onready var default_size := rect_size
 onready var maximize_icon := $V/Controls/H/Maximize/Icon
 onready var double_click_timer := $DoubleClickTimer
+onready var platform_collision := $Platform/CollisionShape2D
 
 
 func _process(delta: float) -> void:
@@ -75,6 +77,8 @@ func _on_Minimize_pressed() -> void:
 
 
 func _on_Maximize_pressed() -> void:
+	if not can_maximize:
+		return
 	if t:
 		t.kill()
 	t = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)\
@@ -84,11 +88,16 @@ func _on_Maximize_pressed() -> void:
 		maximize_icon.texture = MaximizeIcon
 		t.tween_property(self, "rect_position", pre_maximize_position, dur)
 		t.tween_property(self, "rect_size", default_size, dur)
+		platform_collision.shape.extents.x = default_size.x / 2
+		platform_collision.position.x = default_size.x / 2
 	else:
 		maximize_icon.texture = Maximize2Icon
 		pre_maximize_position = rect_position
+		var new_size := get_viewport_rect().size - Vector2(0, 50)
 		t.tween_property(self, "rect_position", Vector2(), dur)
-		t.tween_property(self, "rect_size", get_viewport_rect().size - Vector2(0, 50), dur)
+		t.tween_property(self, "rect_size", new_size, dur)
+		platform_collision.shape.extents.x = new_size.x / 2
+		platform_collision.position.x = new_size.x / 2
 	maximized = !maximized
 
 
@@ -96,6 +105,7 @@ func _on_WindowControls_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			moving = true
+			platform_collision.call_deferred("set_disabled", true)
 			offset = rect_global_position - get_global_mouse_position()
 			if double_click_timer.is_stopped():
 				double_click_timer.start()
@@ -105,6 +115,7 @@ func _on_WindowControls_gui_input(event: InputEvent) -> void:
 				double_click_timer.stop()
 			drag_start_pos = get_global_mouse_position()
 		else:
+			platform_collision.call_deferred("set_disabled", false)
 			moving = false
 
 
@@ -112,7 +123,10 @@ func _on_ShowTimer_timeout() -> void:
 	show()
 	if start_maximized:
 		rect_position = Vector2()
-		rect_size = get_viewport_rect().size - Vector2(0, 50)
+		var new_size := get_viewport_rect().size - Vector2(0, 50)
+		rect_size = new_size
+		platform_collision.shape.extents.x = new_size.x / 2
+		platform_collision.position.x = rect_position.x + new_size.x / 2
 	modulate.a = 0
 	rect_scale = Vector2.ONE * 1.05
 	rect_pivot_offset = rect_size / 2

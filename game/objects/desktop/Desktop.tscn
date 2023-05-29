@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://objects/desktop/file_system/Desktop.tres" type="Resource" id=1]
+[ext_resource path="res://objects/desktop/file_system/resources/Desktop.tres" type="Resource" id=1]
 [ext_resource path="res://objects/desktop/Desktop.gd" type="Script" id=3]
 
 [node name="Desktop" type="VFlowContainer" groups=["desktop"]]

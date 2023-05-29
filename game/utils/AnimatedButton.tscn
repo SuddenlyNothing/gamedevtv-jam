@@ -7,6 +7,7 @@
 [node name="AnimatedButton" type="Button"]
 margin_right = 12.0
 margin_bottom = 22.0
+focus_mode = 0
 flat = true
 script = ExtResource( 1 )
 

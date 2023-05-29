@@ -3,26 +3,38 @@ extends Control
 
 const FolderButton := preload("res://objects/desktop/Folder.tscn")
 const TxtButton := preload("res://objects/desktop/Txt.tscn")
+const Win := preload("res://objects/windows/Win.tscn")
 
 export var folder_data: Resource
 
 var running_programs := {}
 var app_programs := {}
 var apps_to_buttons := {}
+var rng := RandomNumberGenerator.new()
+var num_spawns := 10
 
 onready var apps_parent := $"%AppsParent"
 onready var time := $"%Time"
 onready var desktop := $V/Desktop
+onready var files := $Files
+onready var boss := $Boss
 
 
 func _ready() -> void:
 	if Engine.editor_hint:
 		return
+	rng.seed = 1
 	set_time()
 	get_apps()
 	_print_folder_data()
 	add_desktop_folders()
-	open_program("Browser", ["this can be anything"])
+	open_program("Browser")
+
+
+func _process(delta: float) -> void:
+	if Variables.scam_seen:
+		files.play()
+		set_process(false)
 
 
 func set_time() -> void:
@@ -60,17 +72,56 @@ func open_program(app_name: String, args: Array = []) -> void:
 			program.file_system = folder_data
 			program.path = args
 			program.connect("open_program", self, "open_program")
+			program.connect("generated_virus", self, "generated_virus")
 		"Text":
-			program.file = args[0]
-		"Browser":
 			if args:
-				program.stopped = false
+				program.file = args[0]
 	program.connect("minimized", self, "_on_program_minimized", [app_button, program])
 	program.connect("closed", self, "_on_program_closed", [app_button, program])
 	get_parent().call_deferred("add_child", program)
 	if not app_name in running_programs:
 		running_programs[app_name] = {}
 	running_programs[app_name][program] = 1
+
+
+func generated_virus(viruses: Array) -> void:
+	if num_spawns <= 0:
+		return
+	if num_spawns == 10:
+		files.stop()
+		boss.play()
+	num_spawns -= 1
+	for virus in viruses:
+		virus.connect("tree_exited", self, "_on_virus_destroyed")
+	generate_virus_folders()
+	if not Variables.seen_player:
+		yield(get_tree().create_timer(1.0, false), "timeout")
+		if not Variables.seen_player:
+			open_program("Player")
+
+
+func generate_virus_folders() -> void:
+	_generate_virus_folders_helper(folder_data)
+
+
+func _generate_virus_folders_helper(parent) -> void:
+	var f := Folder.new()
+	f.name = "v"
+	f.children = []
+	for _i in 10:
+		if rng.randf() > 0.5:
+			f.name += char(int(rng.randi_range(65, 90)))
+		else:
+			f.name += char(int(rng.randi_range(97, 122)))
+	parent.children.append(f)
+	
+	var item := FolderButton.instance()
+	item.item_name = f.name
+	item.connect("pressed", self, "open_program", [f.app_name, [f]])
+	desktop.add_child(item)
+	
+	if rng.randf() > 0.5:
+		_generate_virus_folders_helper(f)
 
 
 func _print_folder_data() -> void:
@@ -95,6 +146,8 @@ func _on_Timer_timeout() -> void:
 
 
 func _on_app_clicked(app_button: TaskbarApp) -> void:
+	if not Variables.scam_seen:
+		return
 	if app_button.app_name in running_programs:
 		var close_programs := true
 		for program in running_programs[app_button.app_name]:
@@ -102,6 +155,7 @@ func _on_app_clicked(app_button: TaskbarApp) -> void:
 				close_programs = false
 				break
 		for program in running_programs[app_button.app_name]:
+			get_parent().move_child(program, get_parent().get_child_count() - 1)
 			if close_programs:
 				program.set_minimized(true,
 						app_button.rect_global_position + \
@@ -121,3 +175,9 @@ func _on_program_closed(app_button: TaskbarApp, program: Window):
 	running_programs[app_button.app_name].erase(program)
 	if running_programs[app_button.app_name].empty():
 		running_programs.erase(app_button.app_name)
+
+
+func _on_virus_destroyed() -> void:
+	if num_spawns <= 0 and get_tree().get_nodes_in_group("virus").empty():
+		var win := Win.instance()
+		get_parent().add_child(win)

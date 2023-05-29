@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/temp/small_virus.png" type="Texture" id=1]
 [ext_resource path="res://characters/SmallVirus.gd" type="Script" id=2]
@@ -31,11 +31,23 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[node name="SmallVirus" type="AnimatedSprite"]
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 40.5, 24 )
+
+[node name="SmallVirus" type="AnimatedSprite" groups=["virus"]]
 frames = SubResource( 1 )
 animation = "walk"
 speed_scale = 2.0
 offset = Vector2( 24, 0 )
 script = ExtResource( 2 )
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 15.5, 0 )
+shape = SubResource( 7 )
+
 [connection signal="animation_finished" from="." to="." method="_on_SmallVirus_animation_finished"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

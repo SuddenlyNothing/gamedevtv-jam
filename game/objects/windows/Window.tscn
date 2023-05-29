@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://objects/windows/Window.gd" type="Script" id=1]
 [ext_resource path="res://utils/AnimatedButton.tscn" type="PackedScene" id=2]
@@ -61,6 +61,10 @@ bg_color = Color( 0.0627451, 0.0627451, 0.0666667, 1 )
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 anti_aliasing = false
+
+[sub_resource type="RectangleShape2D" id=14]
+resource_local_to_scene = true
+extents = Vector2( 150, 15 )
 
 [node name="Window" type="PanelContainer"]
 visible = false
@@ -157,6 +161,13 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 autostart = true
+
+[node name="Platform" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+position = Vector2( 150, 15 )
+shape = SubResource( 14 )
+one_way_collision = true
 
 [connection signal="gui_input" from="." to="." method="_on_Window_gui_input"]
 [connection signal="gui_input" from="V/Controls" to="." method="_on_WindowControls_gui_input"]

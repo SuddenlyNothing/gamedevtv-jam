@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/windows/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/BasicPlatformer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/windows/Player.gd" type="Script" id=3]
+[ext_resource path="res://utils/DialogPlayer.tscn" type="PackedScene" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.858824, 0.858824, 0.858824, 1 )
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+
+[sub_resource type="RectangleShape2D" id=2]
+resource_local_to_scene = true
+extents = Vector2( 150, 15 )
+
+[node name="Player" instance=ExtResource( 1 )]
+margin_top = 340.0
+margin_bottom = -60.0
+script = ExtResource( 3 )
+
+[node name="Minimize" parent="V/Controls/H" index="0"]
+visible = false
+
+[node name="Maximize" parent="V/Controls/H" index="1"]
+visible = false
+
+[node name="Close" parent="V/Controls/H" index="2"]
+visible = false
+
+[node name="ContentParent" parent="V" index="1"]
+custom_styles/panel = SubResource( 1 )
+
+[node name="Node" type="Node" parent="." index="3"]
+
+[node name="BasicPlatformer" parent="Node" index="0" instance=ExtResource( 2 )]
+position = Vector2( 512, 460 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="4"]
+
+[node name="DialogPlayer" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
+margin_top = -400.0
+margin_bottom = -400.0
+autoplay_dialog = [ "Hello there! I'm your little helper to deal with all of life's problems.", "Seems like you've got a virus problem on your hands.", "No problem! That virus can't hold a candle to me.", "If I can whack it a few times, it'll be gone in no time.", "Press {left} and {right} to move. And {attack} to attack" ]
+
+[node name="CollisionShape2D" parent="Platform" index="0"]
+shape = SubResource( 2 )
