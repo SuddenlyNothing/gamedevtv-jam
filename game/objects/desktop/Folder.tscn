@@ -1,11 +1,56 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/temp/folder.png" type="Texture" id=1]
 [ext_resource path="res://utils/AnimatedButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/desktop/Folder.gd" type="Script" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0.313726 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=4]
+draw_center = false
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="ImageTexture" id=7]
+
+[sub_resource type="StyleBoxLine" id=12]
+
+[sub_resource type="StyleBoxLine" id=13]
+
+[sub_resource type="StyleBoxLine" id=11]
+
+[sub_resource type="Theme" id=2]
+Button/styles/focus = SubResource( 3 )
+Button/styles/hover = SubResource( 5 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 6 )
+HSlider/icons/grabber = SubResource( 7 )
+HSlider/icons/grabber_disabled = SubResource( 7 )
+HSlider/icons/grabber_highlight = SubResource( 7 )
+HSlider/icons/tick = SubResource( 7 )
+HSlider/styles/grabber_area = SubResource( 12 )
+HSlider/styles/grabber_area_highlight = SubResource( 13 )
+HSlider/styles/slider = SubResource( 11 )
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0.690196, 0.705882, 0.72549, 0.392157 )
 draw_center = false
 border_width_left = 1
@@ -19,62 +64,62 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.690196, 0.705882, 0.72549, 0.392157 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0, 0.611765, 1, 0.227451 )
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 1, 1, 1, 0.392157 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0, 0, 0, 0.196078 )
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id=4]
-
 [node name="Folder" instance=ExtResource( 2 )]
 margin_right = 64.0
 margin_bottom = 64.0
-custom_styles/focus = SubResource( 6 )
+rect_min_size = Vector2( 80, 90 )
+theme = SubResource( 2 )
+custom_styles/focus = SubResource( 14 )
+script = ExtResource( 3 )
 hover_timing = 0.05
-normal_style = SubResource( 5 )
-hover_style = SubResource( 1 )
-pressed_style = SubResource( 3 )
-disabled_style = SubResource( 4 )
+item_name = "Folder"
 
 [node name="BG" parent="." index="0"]
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 15 )
+
+[node name="PressedSFX" parent="." index="2"]
+volume_db = -80.0
+
+[node name="HoverSFX" parent="." index="3"]
+volume_db = -80.0
 
 [node name="M" type="MarginContainer" parent="." index="4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_right = 5
 custom_constants/margin_top = 5
-custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
-[node name="TextureRect" type="TextureRect" parent="M" index="0"]
-margin_left = 5.0
+[node name="V" type="VBoxContainer" parent="M" index="0"]
 margin_top = 5.0
-margin_right = 59.0
-margin_bottom = 59.0
+margin_right = 80.0
+margin_bottom = 85.0
 mouse_filter = 2
+custom_constants/separation = -5
+
+[node name="TextureRect" type="TextureRect" parent="M/V" index="0"]
+margin_right = 80.0
+margin_bottom = 44.0
+mouse_filter = 2
+size_flags_vertical = 3
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
+
+[node name="Control" type="Control" parent="M/V" index="1"]
+margin_top = 39.0
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 41 )
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="M/V/Control" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_constants/line_spacing = -5
+text = "Folder"
+align = 1
+valign = 1
+autowrap = true

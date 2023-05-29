@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/windows/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/windows/TextEditor.gd" type="Script" id=2]
+
+[node name="TextEditor" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="TextEdit" type="TextEdit" parent="V/ContentParent" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+wrap_enabled = true
+caret_blink = true
+
+[connection signal="text_changed" from="V/ContentParent/TextEdit" to="." method="_on_TextEdit_text_changed"]

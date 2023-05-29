@@ -50,6 +50,8 @@ export(StyleBoxFlat) var hover_style: StyleBoxFlat
 export(StyleBoxFlat) var pressed_style: StyleBoxFlat
 export(StyleBoxFlat) var disabled_style: StyleBoxFlat
 
+export(bool) var grab_focus := true
+
 var is_mouse_inside := false
 var previous_disabled := false
 var pressing := false
@@ -354,7 +356,8 @@ func _on_AnimButton_mouse_entered() -> void:
 	if pressed:
 		return
 	set_style("hover")
-	grab_focus()
+	if grab_focus:
+		grab_focus()
 
 
 # Detects unhover
@@ -445,7 +448,7 @@ func _on_AnimatedButton_focus_exited() -> void:
 
 
 func _on_AnimatedButton_gui_input(event: InputEvent) -> void:
-	if not has_focus():
+	if not has_focus() && grab_focus:
 		grab_focus()
 
 

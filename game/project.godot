@@ -25,9 +25,14 @@ _global_script_classes=[ {
 "path": "res://utils/ButtonChangeScene.gd"
 }, {
 "base": "Resource",
-"class": "FolderData",
+"class": "FileSystem",
 "language": "GDScript",
-"path": "res://objects/desktop/FolderData.gd"
+"path": "res://objects/desktop/file_system/FileSystem.gd"
+}, {
+"base": "Resource",
+"class": "Folder",
+"language": "GDScript",
+"path": "res://objects/desktop/file_system/Folder.gd"
 }, {
 "base": "Control",
 "class": "OptionsSelect",
@@ -43,15 +48,34 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://characters/StateMachine.gd"
+}, {
+"base": "AnimatedButton",
+"class": "TaskbarApp",
+"language": "GDScript",
+"path": "res://objects/desktop/TaskbarApp.gd"
+}, {
+"base": "Resource",
+"class": "Txt",
+"language": "GDScript",
+"path": "res://objects/desktop/file_system/Txt.gd"
+}, {
+"base": "Control",
+"class": "Window",
+"language": "GDScript",
+"path": "res://objects/windows/Window.gd"
 } ]
 _global_script_class_icons={
 "AnimatedButton": "",
 "ButtonSFX": "",
 "ChangeScene": "",
-"FolderData": "",
+"FileSystem": "",
+"Folder": "",
 "OptionsSelect": "",
 "SaveData": "",
-"StateMachine": ""
+"StateMachine": "",
+"TaskbarApp": "",
+"Txt": "",
+"Window": ""
 }
 
 [application]
@@ -73,6 +97,10 @@ MusicPlayer="*res://auto_loads/MusicPlayer.tscn"
 
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[gui]
+
+theme/custom_font="res://assets/fonts/rr16.tres"
 
 [input]
 
@@ -116,6 +144,10 @@ continue={
 
 pointing/emulate_touch_from_mouse=true
 pointing/emulate_mouse_from_touch=false
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=100000
 
 [physics]
 

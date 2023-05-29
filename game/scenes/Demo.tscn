@@ -1,3 +1,11 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/desktop/Taskbar.tscn" type="PackedScene" id=1]
 
 [node name="Demo" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="Taskbar" parent="Control" instance=ExtResource( 1 )]

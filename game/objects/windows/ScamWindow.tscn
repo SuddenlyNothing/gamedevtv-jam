@@ -1,0 +1,377 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://objects/windows/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/temp/arrow.png" type="Texture" id=2]
+[ext_resource path="res://assets/ui/reset.png" type="Texture" id=3]
+[ext_resource path="res://utils/DialogPlayer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/fonts/rr32.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/fonts/rr28.tres" type="DynamicFont" id=6]
+[ext_resource path="res://utils/AnimatedButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/windows/ScamWindow.gd" type="Script" id=8]
+[ext_resource path="res://characters/VirusSpawnParticles.tscn" type="PackedScene" id=9]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.164706, 0.164706, 0.164706, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+draw_center = false
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color( 0.5, 0.5, 0.5, 1 )
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.92, 0.87492, 0.0184, 1 )
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color( 0, 0, 0, 0 )
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 0.95, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ScamWindow" instance=ExtResource( 1 )]
+visible = true
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = -50.0
+script = ExtResource( 8 )
+
+[node name="V" parent="." index="0"]
+margin_right = 1024.0
+margin_bottom = 550.0
+
+[node name="Controls" parent="V" index="0"]
+margin_right = 1024.0
+
+[node name="Minimize" parent="V/Controls/H" index="0"]
+margin_left = 844.0
+margin_right = 904.0
+disabled = true
+
+[node name="Maximize" parent="V/Controls/H" index="1"]
+margin_left = 904.0
+margin_right = 964.0
+disabled = true
+
+[node name="Close" parent="V/Controls/H" index="2"]
+margin_left = 964.0
+margin_right = 1024.0
+disabled = true
+
+[node name="ContentParent" parent="V" index="1"]
+margin_right = 1024.0
+margin_bottom = 550.0
+
+[node name="V" type="VBoxContainer" parent="V/ContentParent" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="H" type="HBoxContainer" parent="V/ContentParent/V" index="0"]
+margin_right = 1024.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+alignment = 1
+
+[node name="M" type="MarginContainer" parent="V/ContentParent/V/H" index="0"]
+margin_right = 190.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+custom_constants/margin_top = 5
+custom_constants/margin_bottom = 5
+
+[node name="H" type="HBoxContainer" parent="V/ContentParent/V/H/M" index="0"]
+margin_top = 5.0
+margin_right = 190.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="V/ContentParent/V/H/M/H" index="0"]
+margin_left = 53.0
+margin_right = 78.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 25, 0 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="V/ContentParent/V/H/M/H" index="1"]
+margin_left = 82.0
+margin_right = 107.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 25, 0 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+flip_h = true
+
+[node name="TextureRect3" type="TextureRect" parent="V/ContentParent/V/H/M/H" index="2"]
+margin_left = 111.0
+margin_right = 136.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 25, 0 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 7
+flip_h = true
+
+[node name="Panel" type="Panel" parent="V/ContentParent/V/H" index="1"]
+margin_left = 194.0
+margin_right = 829.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 2 )
+
+[node name="M" type="MarginContainer" parent="V/ContentParent/V/H/Panel" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_left = 30
+
+[node name="Label" type="Label" parent="V/ContentParent/V/H/Panel/M" index="0"]
+margin_left = 30.0
+margin_top = 3.0
+margin_right = 635.0
+margin_bottom = 22.0
+text = "http://sketchywebsite.org/free-wbux"
+
+[node name="H2" type="HBoxContainer" parent="V/ContentParent/V/H" index="2"]
+margin_left = 833.0
+margin_right = 1024.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Bookmarks" type="PanelContainer" parent="V/ContentParent/V" index="1"]
+margin_top = 25.0
+margin_right = 1024.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 25 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="M" type="MarginContainer" parent="V/ContentParent/V/Bookmarks" index="0"]
+margin_top = 1.0
+margin_right = 1024.0
+margin_bottom = 24.0
+custom_constants/margin_right = 10
+custom_constants/margin_left = 20
+
+[node name="H" type="HBoxContainer" parent="V/ContentParent/V/Bookmarks/M" index="0"]
+margin_left = 20.0
+margin_right = 1014.0
+margin_bottom = 23.0
+
+[node name="VSeparator11" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="0"]
+margin_right = 4.0
+margin_bottom = 23.0
+
+[node name="Label" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="1"]
+margin_left = 8.0
+margin_top = 2.0
+margin_right = 109.0
+margin_bottom = 21.0
+text = "Student Portal"
+
+[node name="VSeparator" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="2"]
+margin_left = 113.0
+margin_right = 117.0
+margin_bottom = 23.0
+
+[node name="Label2" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="3"]
+margin_left = 121.0
+margin_top = 2.0
+margin_right = 166.0
+margin_bottom = 21.0
+text = "Reddit"
+
+[node name="VSeparator2" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="4"]
+margin_left = 170.0
+margin_right = 174.0
+margin_bottom = 23.0
+
+[node name="Label3" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="5"]
+margin_left = 178.0
+margin_top = 2.0
+margin_right = 226.0
+margin_bottom = 21.0
+text = "Twitch"
+
+[node name="VSeparator3" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="6"]
+margin_left = 230.0
+margin_right = 234.0
+margin_bottom = 23.0
+
+[node name="Label4" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="7"]
+margin_left = 238.0
+margin_top = 2.0
+margin_right = 302.0
+margin_bottom = 21.0
+text = "YouTube"
+
+[node name="VSeparator4" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="8"]
+margin_left = 306.0
+margin_right = 310.0
+margin_bottom = 23.0
+
+[node name="Label5" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="9"]
+margin_left = 314.0
+margin_top = 2.0
+margin_right = 386.0
+margin_bottom = 21.0
+text = "Instagram"
+
+[node name="VSeparator5" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="10"]
+margin_left = 390.0
+margin_right = 394.0
+margin_bottom = 23.0
+
+[node name="Label6" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="11"]
+margin_left = 398.0
+margin_top = 2.0
+margin_right = 462.0
+margin_bottom = 21.0
+text = "ChatGPT"
+
+[node name="VSeparator6" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="12"]
+margin_left = 466.0
+margin_right = 470.0
+margin_bottom = 23.0
+
+[node name="Label7" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="13"]
+margin_left = 474.0
+margin_top = 2.0
+margin_right = 548.0
+margin_bottom = 21.0
+text = "Freesound"
+
+[node name="VSeparator7" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="14"]
+margin_left = 552.0
+margin_right = 556.0
+margin_bottom = 23.0
+
+[node name="Label8" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="15"]
+margin_left = 560.0
+margin_top = 2.0
+margin_right = 618.0
+margin_bottom = 21.0
+text = "Shaders"
+
+[node name="VSeparator8" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="16"]
+margin_left = 622.0
+margin_right = 626.0
+margin_bottom = 23.0
+
+[node name="Label9" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="17"]
+margin_left = 630.0
+margin_top = 2.0
+margin_right = 728.0
+margin_bottom = 21.0
+text = "cute cat video"
+
+[node name="VSeparator9" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="18"]
+margin_left = 732.0
+margin_right = 736.0
+margin_bottom = 23.0
+
+[node name="Label10" type="Label" parent="V/ContentParent/V/Bookmarks/M/H" index="19"]
+margin_left = 740.0
+margin_top = 2.0
+margin_right = 766.0
+margin_bottom = 21.0
+text = "Itch"
+
+[node name="VSeparator10" type="VSeparator" parent="V/ContentParent/V/Bookmarks/M/H" index="20"]
+margin_left = 770.0
+margin_right = 774.0
+margin_bottom = 23.0
+
+[node name="V" type="VBoxContainer" parent="V/ContentParent/V" index="2"]
+margin_top = 50.0
+margin_right = 1024.0
+margin_bottom = 520.0
+size_flags_vertical = 3
+custom_constants/separation = 78
+alignment = 1
+
+[node name="V" type="VBoxContainer" parent="V/ContentParent/V/V" index="0"]
+margin_top = 138.0
+margin_right = 1024.0
+margin_bottom = 213.0
+
+[node name="Label" type="Label" parent="V/ContentParent/V/V/V" index="0"]
+margin_right = 1024.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 5 )
+text = "Free W-Bux!!"
+align = 1
+
+[node name="Label2" type="Label" parent="V/ContentParent/V/V/V" index="1"]
+margin_top = 42.0
+margin_right = 1024.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 6 )
+text = "Click the downlode buton bellow to win!!!"
+align = 1
+
+[node name="Download" parent="V/ContentParent/V/V" index="1" instance=ExtResource( 7 )]
+unique_name_in_owner = true
+margin_left = 437.0
+margin_top = 291.0
+margin_right = 587.0
+margin_bottom = 331.0
+rect_min_size = Vector2( 150, 40 )
+size_flags_horizontal = 4
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
+text = "DOWNLOAD NOW!"
+normal_style = SubResource( 3 )
+hover_style = SubResource( 4 )
+pressed_style = SubResource( 5 )
+
+[node name="Timer" type="Timer" parent="." index="3"]
+wait_time = 2.7
+one_shot = true
+
+[node name="FlickerTimer" type="Timer" parent="." index="4"]
+one_shot = true
+
+[node name="FlickerIntervalTimer" type="Timer" parent="." index="5"]
+wait_time = 0.1
+one_shot = true
+
+[node name="VirusSpawnParticles" parent="." index="6" instance=ExtResource( 9 )]
+position = Vector2( 512, 391 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+layer = 81
+
+[node name="DialogPlayer" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
+autoplay_dialog = [ "Woah! Free w-bux!", "I better snatch it up before the deal disappears" ]
+
+[connection signal="pressed" from="V/ContentParent/V/V/Download" to="." method="_on_Download_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="FlickerTimer" to="." method="_on_FlickerTimer_timeout"]
+[connection signal="timeout" from="FlickerIntervalTimer" to="." method="_on_FlickerIntervalTimer_timeout"]

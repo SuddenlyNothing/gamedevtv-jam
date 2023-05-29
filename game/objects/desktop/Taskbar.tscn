@@ -1,0 +1,166 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://objects/desktop/Taskbar.gd" type="Script" id=1]
+[ext_resource path="res://objects/desktop/TaskbarApp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/desktop/file_system/Desktop.tres" type="Resource" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://assets/temp/folder.png" type="Texture" id=5]
+[ext_resource path="res://assets/temp/txt.png" type="Texture" id=6]
+[ext_resource path="res://assets/temp/browser.png" type="Texture" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0.313726 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=4]
+draw_center = false
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="ImageTexture" id=7]
+
+[sub_resource type="StyleBoxLine" id=12]
+
+[sub_resource type="StyleBoxLine" id=13]
+
+[sub_resource type="StyleBoxLine" id=11]
+
+[sub_resource type="Theme" id=2]
+Button/styles/focus = SubResource( 3 )
+Button/styles/hover = SubResource( 5 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 6 )
+HSlider/icons/grabber = SubResource( 7 )
+HSlider/icons/grabber_disabled = SubResource( 7 )
+HSlider/icons/grabber_highlight = SubResource( 7 )
+HSlider/icons/tick = SubResource( 7 )
+HSlider/styles/grabber_area = SubResource( 12 )
+HSlider/styles/grabber_area_highlight = SubResource( 13 )
+HSlider/styles/slider = SubResource( 11 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.117647, 0.176471, 0.239216, 0.588235 )
+border_width_top = 1
+border_color = Color( 0.756863, 0.741176, 0.870588, 1 )
+border_blend = true
+
+[node name="Taskbar" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+folder_data = ExtResource( 3 )
+
+[node name="V" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="Desktop" type="VFlowContainer" parent="V"]
+margin_right = 1024.0
+margin_bottom = 550.0
+size_flags_vertical = 3
+
+[node name="Panel" type="PanelContainer" parent="V"]
+margin_top = 550.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 50 )
+mouse_filter = 2
+custom_styles/panel = SubResource( 1 )
+
+[node name="M" type="MarginContainer" parent="V/Panel"]
+margin_top = 1.0
+margin_right = 1024.0
+margin_bottom = 50.0
+mouse_filter = 2
+custom_constants/margin_right = 10
+custom_constants/margin_top = 3
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 3
+
+[node name="H" type="HBoxContainer" parent="V/Panel/M"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 1014.0
+margin_bottom = 46.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="V/Panel/M/H"]
+margin_right = 44.0
+margin_bottom = 43.0
+mouse_filter = 2
+size_flags_horizontal = 3
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="AppsParent" type="HBoxContainer" parent="V/Panel/M/H"]
+unique_name_in_owner = true
+margin_left = 48.0
+margin_right = 939.0
+margin_bottom = 43.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+custom_constants/separation = 5
+alignment = 1
+
+[node name="TaskbarApp3" parent="V/Panel/M/H/AppsParent" instance=ExtResource( 2 )]
+margin_left = 376.0
+margin_right = 419.0
+margin_bottom = 43.0
+play_hover = false
+play_pressed = false
+app_name = "Browser"
+app_icon = ExtResource( 7 )
+open_with = "res://objects/windows/ScamWindow.tscn"
+
+[node name="TaskbarApp" parent="V/Panel/M/H/AppsParent" instance=ExtResource( 2 )]
+margin_left = 424.0
+margin_right = 467.0
+margin_bottom = 43.0
+play_hover = false
+play_pressed = false
+app_name = "Files"
+app_icon = ExtResource( 5 )
+open_with = "res://objects/windows/FileExplorer.tscn"
+
+[node name="TaskbarApp2" parent="V/Panel/M/H/AppsParent" instance=ExtResource( 2 )]
+margin_left = 472.0
+margin_right = 515.0
+margin_bottom = 43.0
+play_hover = false
+play_pressed = false
+app_name = "Text"
+app_icon = ExtResource( 6 )
+open_with = "res://objects/windows/TextEditor.tscn"
+
+[node name="Time" type="Label" parent="V/Panel/M/H"]
+unique_name_in_owner = true
+margin_left = 943.0
+margin_top = 12.0
+margin_right = 1011.0
+margin_bottom = 31.0
+text = "12:00 PM"
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
